@@ -1,0 +1,105 @@
+<!-- Este p-panel deja un espacio por que allí se pueden adicionar cosas, ejemplo header = "Mensaje" -->
+<p-panel header="Pipes no tan comunes" class="p-1">
+  <p>
+    Pipes incluídos en Angular - Usualmente en el Common Module
+  </p>
+</p-panel>
+
+<div class="grid">
+
+  <div class="col-12 md:col-6">
+    <p-fieldset legend="i18nSelect Pipe" toggleable="true">
+
+      <p>
+        Saludos {{ name }}, es un placer
+        {{ gender | i18nSelect:invitationMap }}
+        a nuestro evento.
+      </p>
+
+      <p-button
+        (click) = "changeClient()"
+        label="Cambiar persona"
+        >
+      </p-button>
+
+    </p-fieldset>
+  </div>
+
+  <!-- i18nPlural Pipe: Estan relacionados a un tipo especifico por idioma o una configuación que cambia sutil una palabra. -->
+  <div class="col-12 md:col-6">
+    <p-fieldset legend="i18nPlural Pipe" toggleable="true">
+      <p>
+        Actualmente {{ clients.length | i18nPlural:clientsMap }}
+      </p>
+      <p-button
+        (click) = "deleteClient()"
+        label="Borrar cliente">
+
+      </p-button>
+    </p-fieldset>
+  </div>
+
+  <!-- Slice Pipe: Sirve para cortar cosas, no solo se manejan con string, tambien con arreglos. -->
+  <div class="col-12 md:col-6">
+    <p-fieldset legend="Slice Pipe" toggleable="true">
+      <b>Original</b>
+      <pre>{{ clients }}</pre>
+
+      <b>Slice:0:2</b>
+      <pre>{{ clients | slice:0:2 }}</pre>
+
+      <b>Slice:1:3</b>
+      <pre>{{ clients | slice:1:3 }}</pre>
+
+      <b>Slice:3:4</b>
+      <pre>{{ clients | slice:3:4 }}</pre>
+
+      <b>Slice:0:-1</b>
+      <pre>{{ clients | slice:0:-1 }}</pre>
+
+      <b>Slice:0:-2</b>
+      <pre>{{ clients | slice:0:-2 }}</pre>
+    </p-fieldset>
+  </div>
+
+  <div class="col-12 md:col-6">
+    <p-fieldset legend="Json Pipe" toggleable="true">
+      <pre>{{ person | json }}</pre>
+    </p-fieldset>
+  </div>
+
+  <!-- KeyValue Pipe: toma un objeto y lo barre como un arreglo. Este pipe muestra en orden alfabetico los datos -->
+  <div class="col-12 md:col-6">
+    <p-fieldset legend="KeyValue Pipe" toggleable="true">
+      <ul>
+        <li *ngFor="let item of person | keyvalue">
+          {{ item | json }}
+          <!-- <b>{{ item.key | titlecase }}:</b> {{ item.value }} -->
+        </li>
+      </ul>
+    </p-fieldset>
+  </div>
+
+  <!-- Async Pipe: Me permite escuchar un observable y cuando me retorna los datos y me paso a otra pagina automaticamente se destruye. -->
+  <div class="col-12 md:col-6">
+    <p-fieldset legend="Async Pipe" toggleable="true">
+      <!-- Si se dejan las dos etiquetas se tienen dos observables por ello se repite los mensajes en consola. -->
+      <pre *ngIf="!(myObservableTimer | async)">
+        Resolviendo observable
+      </pre>
+      <pre>
+        {{ myObservableTimer | async }}
+        <!-- {{ myObservableTimer | json }} -->
+      </pre>
+
+      <pre *ngIf="!(promiseValue | async)">
+        Resolviendo promesa
+      </pre>
+      <pre>
+        {{ promiseValue | async }}
+        <!-- {{ myObservableTimer | json }} -->
+      </pre>
+    </p-fieldset>
+  </div>
+
+</div>
